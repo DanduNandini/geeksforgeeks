@@ -1,0 +1,40 @@
+class Solution {
+    public int kokoEat(int[] piles, int h) {
+        // code here
+
+        int low = 1;
+        int high = getMax(piles);
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (canEatAll(piles, h, mid)) {
+                high = mid; 
+            } else {
+                low = mid + 1; 
+            }
+        }
+
+        return low;
+    }
+
+    private int getMax(int[] piles) {
+        int max = piles[0];
+        for (int pile : piles) {
+            if (pile > max) {
+                max = pile;
+            }
+        }
+        return max;
+    }
+
+    private boolean canEatAll(int[] piles, int h, int k) {
+        int hours = 0;
+        for (int pile : piles) {
+            
+            hours += (pile + k - 1) / k;
+        }
+        return hours <= h;
+    }
+}     
+ 
